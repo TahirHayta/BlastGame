@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using static Unity.Collections.AllocatorManager;
 
-public class GameScreenMatrix : MonoBehaviour
-{ // ONLY FUNCTIONS ABOUT INT MATRIX
+public class GameScreenIntMatrix : MonoBehaviour // ONLY FUNCTIONS ABOUT INT MATRIX. BLOCK MATRIX WILL BE UPDATED ACCORDING TO THIS FUNCTIONS.
+{ 
     public int width;
     public int height;
     public enum difficulty { easy, medium, hard };
@@ -23,8 +24,9 @@ public class GameScreenMatrix : MonoBehaviour
     If it is less than minBlastableBlocks, intMatrix will be updated accordingly.
     */
     public float blastablitiyFactor; // new blocks will appear according to this factor. Higher this is, higher blastable newcomers.
-
-    public GameScreenMatrix(int width, int height, difficulty difficultyLevel)
+    public int[,,] XYandColorMatrix; // to keep track of newcomers.
+    public Dictionary<int, int> colorDictionary; // to keep track of colors and their numbers. first is color, second is how many exist that color.
+    public GameScreenIntMatrix(int width, int height, difficulty difficultyLevel)
     {
         this.width = width;
         this.height = height;
@@ -48,6 +50,8 @@ public class GameScreenMatrix : MonoBehaviour
         //TODO as we go up, new blocks will be added according to blastablitiyFactor.
 
         //TODO after completing 1/4 of the matrix, we will leave the rest of the work to fulfillIntMatrix() method to prevent deadlock situations.
+
+        // Add newcomers to XYandColorMatrix
         fulfillIntMatrix();
         
     }
@@ -60,8 +64,36 @@ public class GameScreenMatrix : MonoBehaviour
 
         /*TODO First compare minBlastableBlocks with blastableBlocks. According to the difference, create a new int certainBlastability. 
         It is used to decide how many blocks will be blastable certainly.
-        as we go up to fulfill remainings, new blocks will be added according to blastablitiyFactor.*/
+        as we go up to fulfill remainings, new blocks will be added according to blastablitiyFactor.
+
+        So it will call addBlastable or addUnblastable functions depending on the result of randomness.
+        */
+
+        //TODO Add newcomers to XYandColorMatrix here.
+
     }
+    public void addBlastable(int x, int y)
+    {
+        //TODO check bottom, left and right. These are colors we can add.
+        //TODO decide which color to add according to colorDictionary.
+    }
+    public void addUnblastable(int x, int y)
+    {
+        // TODO check bottom, left and right. These are colors we cannot add.
+        //TODO decide which color to add according to colorDictionary.
+    }
+
+    public void blastConnection(int x, int y, int color)
+    {
+        //TODO blast the block and update intMatrix.
+        //blastableBlocks--;
+        //TODO update colorDictionary.
+
+        //THENNNN RECURSIONN!!!
+        //TODO check top, bottom, left and right. If they are the same color, call blastConnection again.
+
+    }
+    
 
 
     
