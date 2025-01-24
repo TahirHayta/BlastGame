@@ -5,7 +5,7 @@ using UnityEngine;
 using static Unity.Collections.AllocatorManager;
 
 public class GameScreenMatrix : MonoBehaviour
-{
+{ // ONLY FUNCTIONS ABOUT INT MATRIX
     public int width;
     public int height;
     public enum difficulty { easy, medium, hard };
@@ -22,6 +22,7 @@ public class GameScreenMatrix : MonoBehaviour
     public int blastableBlocks;/* remaining blastable blocks after a blast. 
     If it is less than minBlastableBlocks, intMatrix will be updated accordingly.
     */
+    public float blastablitiyFactor; // new blocks will appear according to this factor. Higher this is, higher blastable newcomers.
 
     public GameScreenMatrix(int width, int height, difficulty difficultyLevel)
     {
@@ -29,16 +30,41 @@ public class GameScreenMatrix : MonoBehaviour
         this.height = height;
         this.difficultyLevel = difficultyLevel;
         intMatrix = new int[width, height];
-        decideMinBlastableBlocks(width, height, difficultyLevel);
-        
-        //blockMatrix = new Block[width, height]; TODO
+        additionalInitializations(width, height, difficultyLevel);
+        initializeIntMatrix();
     }
 
-    public void decideMinBlastableBlocks(int width, int height, difficulty difficultyLevel)
+    public void additionalInitializations(int width, int height, difficulty difficultyLevel)
     {
-        // will be decided according to how hard 
-        //TODO
+        //TODO minBlastableBlocks will be decided according to how hard 
+
+        //TODO blastablitiyFactor will be decided according to how hard 
     }
+
+    public void initializeIntMatrix()
+    {
+        //TODO Firstly, bottom line will be filled.
+
+        //TODO as we go up, new blocks will be added according to blastablitiyFactor.
+
+        //TODO after completing 1/4 of the matrix, we will leave the rest of the work to fulfillIntMatrix() method to prevent deadlock situations.
+        fulfillIntMatrix();
+        
+    }
+
+    
+    // Prevents deadlock situations. It is being called in a part of beginning and the rest.
+    public void fulfillIntMatrix()
+    {
+        //TODO Firstly, blocks will fall down.
+
+        /*TODO First compare minBlastableBlocks with blastableBlocks. According to the difference, create a new int certainBlastability. 
+        It is used to decide how many blocks will be blastable certainly.
+        as we go up to fulfill remainings, new blocks will be added according to blastablitiyFactor.*/
+    }
+
+
+    
 
 
 }
